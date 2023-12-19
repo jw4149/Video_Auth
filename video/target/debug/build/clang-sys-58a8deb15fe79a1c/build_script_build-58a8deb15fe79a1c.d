@@ -1,9 +1,0 @@
-/Users/jiayangwang/Desktop/Video_Auth/video/target/debug/build/clang-sys-58a8deb15fe79a1c/build_script_build-58a8deb15fe79a1c: /Users/jiayangwang/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.6.1/build.rs /Users/jiayangwang/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.6.1/build/macros.rs /Users/jiayangwang/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.6.1/build/common.rs /Users/jiayangwang/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.6.1/build/dynamic.rs /Users/jiayangwang/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.6.1/build/static.rs
-
-/Users/jiayangwang/Desktop/Video_Auth/video/target/debug/build/clang-sys-58a8deb15fe79a1c/build_script_build-58a8deb15fe79a1c.d: /Users/jiayangwang/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.6.1/build.rs /Users/jiayangwang/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.6.1/build/macros.rs /Users/jiayangwang/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.6.1/build/common.rs /Users/jiayangwang/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.6.1/build/dynamic.rs /Users/jiayangwang/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.6.1/build/static.rs
-
-/Users/jiayangwang/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.6.1/build.rs:
-/Users/jiayangwang/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.6.1/build/macros.rs:
-/Users/jiayangwang/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.6.1/build/common.rs:
-/Users/jiayangwang/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.6.1/build/dynamic.rs:
-/Users/jiayangwang/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.6.1/build/static.rs:
