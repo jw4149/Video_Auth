@@ -39,6 +39,7 @@ fn main() -> Result<(), ffmpeg::Error> {
                 while decoder.receive_frame(&mut decoded).is_ok() {
                     let mut rgb_frame = Video::empty();
                     scaler.run(&decoded, &mut rgb_frame)?;
+                    draw_black_box(&mut rgb_frame, 500, 500, 100, 100);
                     save_file(&rgb_frame, frame_index).unwrap();
                     frame_index += 1;
                 }
@@ -63,4 +64,22 @@ fn save_file(frame: &Video, index: usize) -> std::result::Result<(), std::io::Er
     file.write_all(format!("P6\n{} {}\n255\n", frame.width(), frame.height()).as_bytes())?;
     file.write_all(frame.data(0))?;
     Ok(())
+}
+
+fn draw_black_box(frame: &mut Video, x: usize, y: usize, width: usize, height: usize) {
+    let line_stride = frame.stride(0);
+    let pixel_format = frame.format();
+
+    if pixel_format != Pixel::RGB24 {
+        panic!("Unsupported pixel format. Expected RGB24.");
+    }
+
+    for j in y..(y + height) {
+        for i in x..(x + width) {
+            let pixel_index = j * line_stride + i * 3;
+            frame.data_mut(0)[pixel_index] = 0;     // R
+            frame.data_mut(0)[pixel_index + 1] = 0; // G
+            frame.data_mut(0)[pixel_index + 2] = 0; // B
+        }
+    }
 }
