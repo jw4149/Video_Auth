@@ -596,11 +596,14 @@ impl Mp4Track {
         }
     
         // Assuming 4-byte NALU length prefix (typical in MP4 format)
-        let nalu_length = ((stream[start_index] as usize) << 24)
-            | ((stream[start_index + 1] as usize) << 16)
-            | ((stream[start_index + 2] as usize) << 8)
-            | (stream[start_index + 3] as usize);
-            
+        let nalu_length_arr = [
+            stream[start_index],
+            stream[start_index + 1],
+            stream[start_index + 2],
+            stream[start_index + 3],
+        ];
+        let nalu_length = u32::from_be_bytes(nalu_length_arr) as usize;
+        
         let nalu_start = start_index + 4; // Start of NALU data
         let nalu_header = stream[nalu_start] as usize; // First byte of NALU data
         
