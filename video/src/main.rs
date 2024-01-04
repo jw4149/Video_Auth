@@ -13,15 +13,32 @@ fn main() -> Result<(), ffmpeg::Error> {
 
     // call unwrap can potentially cause a panic if the Result<Input, Error> is an err.
     let mut ictx = ffmpeg::format::input(&"resource/input.mp4").unwrap();
+    if let Some(stream) = ictx.streams().best(ffmpeg::media::Type::Video) {
+        println!("Best video stream index: {}", stream.index());
+    }
+
+    if let Some(stream) = ictx.streams().best(ffmpeg::media::Type::Audio) {
+        println!("Best audio stream index: {}", stream.index());
+    }
+
+    // for the example mp4, we don't have subtitle stream
+    if let Some(stream) = ictx.streams().best(ffmpeg::media::Type::Subtitle) {
+        println!("Best subtitle stream index: {}", stream.index());
+    }
     
-    let input = ictx
+    let video_stream = ictx
         .streams()
         .best(Type::Video)
         .ok_or(ffmpeg::Error::StreamNotFound)?;
-    let video_stream_index = input.index();
-    print_type_of(&video_stream_index);
+    let video_stream_index = video_stream.index();
 
-    let context_decoder = ffmpeg::codec::context::Context::from_parameters(input.parameters())?;
+    // print out some metadata
+    println!("The framerate of video stream {}", video_stream.rate());
+    println!("The frames {}", video_stream.frames());
+    println!("Metadata {:?}", video_stream.metadata());
+    println!("duration {:?}", video_stream.duration() as f64 * f64::from(video_stream.time_base()));
+
+    let context_decoder = ffmpeg::codec::context::Context::from_parameters(video_stream.parameters())?;
     let mut decoder = context_decoder.decoder().video()?;
 
     let mut scaler = Context::get(
@@ -36,7 +53,7 @@ fn main() -> Result<(), ffmpeg::Error> {
 
     let mut frame_index = 0;
 
-    let mut receive_and_process_decoded_frames =
+    let mut add_black_box_to_frames =
         |decoder: &mut ffmpeg::decoder::Video| -> Result<(), ffmpeg::Error> {
             let mut decoded = Video::empty();
             while decoder.receive_frame(&mut decoded).is_ok() {
@@ -56,7 +73,7 @@ fn main() -> Result<(), ffmpeg::Error> {
         }
     }
     decoder.send_eof()?;
-    receive_and_process_decoded_frames(&mut decoder)?;
+    add_black_box_to_frames(&mut decoder)?;
 
     Ok(())
 }
