@@ -7,12 +7,18 @@ use ffmpeg::util::frame::video::Video;
 use video::print_type_of;
 use video::file_op::draw_black_box;
 use video::file_op::save_file;
+use image::{Rgb, ImageBuffer};
+use image::jpeg::JpegEncoder;
+use std::io::BufWriter;
+use std::fs::File;
+use std::io::Write;
 
 fn main() -> Result<(), ffmpeg::Error> {
     ffmpeg::init().unwrap();
 
     // call unwrap can potentially cause a panic if the Result<Input, Error> is an err.
     let mut ictx = ffmpeg::format::input(&"resource/input.mp4").unwrap();
+    
     if let Some(stream) = ictx.streams().best(ffmpeg::media::Type::Video) {
         println!("Best video stream index: {}", stream.index());
     }
@@ -66,6 +72,34 @@ fn main() -> Result<(), ffmpeg::Error> {
             Ok(())
         };
 
+    let mut receive_and_process_decoded_frames =
+    |decoder: &mut ffmpeg::decoder::Video| -> Result<(), ffmpeg::Error> {
+        let mut decoded = Video::empty();
+        let mut frame_index = 0;
+        while decoder.receive_frame(&mut decoded).is_ok() {
+            // Allocate a frame to store the converted frame
+            let mut rgb_frame = Video::empty();
+            scaler.run(&decoded, &mut rgb_frame)?;
+
+            let file_name = format!("frame_vec_{}.txt", frame_index);
+            let mut file = match File::create(file_name) {
+                Ok(file) => file,
+                Err(error) => panic!("create file failed"),
+            };
+            let vec = rgb_frame.data(0).to_vec();
+            let data_string = vec.iter()
+                .map(|&num| num.to_string())
+                .collect::<Vec<_>>()
+                .join("\n");
+            println!("len of vec {}", vec.len());
+            println!("{}, {}", vec[0], vec[1]); // 1980 * 1080 * 3
+            file.write_all(data_string.as_bytes()).unwrap();
+
+            frame_index += 1;
+        }
+        Ok(())
+    };
+
     for (stream, packet) in ictx.packets() {
         if stream.index() == video_stream_index {
             decoder.send_packet(&packet)?;
@@ -73,7 +107,8 @@ fn main() -> Result<(), ffmpeg::Error> {
         }
     }
     decoder.send_eof()?;
-    add_black_box_to_frames(&mut decoder)?;
+    //add_black_box_to_frames(&mut decoder)?;
+    receive_and_process_decoded_frames(&mut decoder)?;
 
     Ok(())
 }

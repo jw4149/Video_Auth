@@ -9,7 +9,7 @@ use std::any::type_name;
 pub fn save_file(frame: &Video, index: usize) -> std::result::Result<(), std::io::Error> {
     let mut file = File::create(format!("./fixtures/overlay/frame{}.ppm", index))?;
     file.write_all(format!("P6\n{} {}\n255\n", frame.width(), frame.height()).as_bytes())?;
-    file.write_all(frame.data(0))?;
+    file.write_all(frame.data(0))?; 
     //println!("{}", frame.data(0).len());
     Ok(())
 }
