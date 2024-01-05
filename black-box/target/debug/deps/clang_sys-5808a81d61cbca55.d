@@ -1,0 +1,14 @@
+/Users/jianfeng/Developer/Video_Auth/black-box/target/debug/deps/libclang_sys-5808a81d61cbca55.rmeta: /Users/jianfeng/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.7.0/src/lib.rs /Users/jianfeng/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.7.0/src/support.rs /Users/jianfeng/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.7.0/src/link.rs /Users/jianfeng/Developer/Video_Auth/black-box/target/debug/build/clang-sys-d702a6673a59ec5e/out/macros.rs /Users/jianfeng/Developer/Video_Auth/black-box/target/debug/build/clang-sys-d702a6673a59ec5e/out/common.rs /Users/jianfeng/Developer/Video_Auth/black-box/target/debug/build/clang-sys-d702a6673a59ec5e/out/dynamic.rs
+
+/Users/jianfeng/Developer/Video_Auth/black-box/target/debug/deps/libclang_sys-5808a81d61cbca55.rlib: /Users/jianfeng/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.7.0/src/lib.rs /Users/jianfeng/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.7.0/src/support.rs /Users/jianfeng/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.7.0/src/link.rs /Users/jianfeng/Developer/Video_Auth/black-box/target/debug/build/clang-sys-d702a6673a59ec5e/out/macros.rs /Users/jianfeng/Developer/Video_Auth/black-box/target/debug/build/clang-sys-d702a6673a59ec5e/out/common.rs /Users/jianfeng/Developer/Video_Auth/black-box/target/debug/build/clang-sys-d702a6673a59ec5e/out/dynamic.rs
+
+/Users/jianfeng/Developer/Video_Auth/black-box/target/debug/deps/clang_sys-5808a81d61cbca55.d: /Users/jianfeng/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.7.0/src/lib.rs /Users/jianfeng/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.7.0/src/support.rs /Users/jianfeng/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.7.0/src/link.rs /Users/jianfeng/Developer/Video_Auth/black-box/target/debug/build/clang-sys-d702a6673a59ec5e/out/macros.rs /Users/jianfeng/Developer/Video_Auth/black-box/target/debug/build/clang-sys-d702a6673a59ec5e/out/common.rs /Users/jianfeng/Developer/Video_Auth/black-box/target/debug/build/clang-sys-d702a6673a59ec5e/out/dynamic.rs
+
+/Users/jianfeng/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.7.0/src/lib.rs:
+/Users/jianfeng/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.7.0/src/support.rs:
+/Users/jianfeng/.cargo/registry/src/index.crates.io-6f17d22bba15001f/clang-sys-1.7.0/src/link.rs:
+/Users/jianfeng/Developer/Video_Auth/black-box/target/debug/build/clang-sys-d702a6673a59ec5e/out/macros.rs:
+/Users/jianfeng/Developer/Video_Auth/black-box/target/debug/build/clang-sys-d702a6673a59ec5e/out/common.rs:
+/Users/jianfeng/Developer/Video_Auth/black-box/target/debug/build/clang-sys-d702a6673a59ec5e/out/dynamic.rs:
+
+# env-dep:OUT_DIR=/Users/jianfeng/Developer/Video_Auth/black-box/target/debug/build/clang-sys-d702a6673a59ec5e/out
