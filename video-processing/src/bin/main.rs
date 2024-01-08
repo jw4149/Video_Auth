@@ -19,7 +19,7 @@ fn main() {
     let mut position = Time::zero();
     let mut i = 0;
     for frame in decoder.decode_iter() {
-        println!("frame {}", i);
+        println!("Processing frame #{}", i);
         if let Ok((_, mut frame)) = frame {
             frame.slice_mut(ndarray::s![500..600, 500..600, ..]).fill(0);
             encoder.encode(&frame, &position).expect("failed to encode frame");
