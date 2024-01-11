@@ -9,7 +9,7 @@ use std::io::prelude::*;
 fn main() {
     video_rs::init().unwrap();
 
-    let source: Locator = PathBuf::from("samples/sample.mp4").into();
+    let source: Locator = PathBuf::from("samples/output.mp4").into();
     
     let mut decoder = Decoder::new(&source).expect("failed to create decoder");
     // let (width, height) = decoder.size();
@@ -29,7 +29,7 @@ fn main() {
 }
 
 fn save_file(frame: &Video, index: usize) -> std::result::Result<(), std::io::Error> {
-    let mut file = File::create(format!("sample_frames/frame{}.ppm", index))?;
+    let mut file = File::create(format!("output_frames/frame{}.ppm", index))?;
     file.write_all(format!("P6\n{} {}\n255\n", frame.width(), frame.height()).as_bytes())?;
     file.write_all(frame.data(0))?;
     Ok(())

@@ -19,15 +19,15 @@ fn main() {
     let mut position = Time::zero();
     let mut i = 0;
     for frame in decoder.decode_iter() {
-        println!("Processing frame #{}", i);
         if let Ok((_, mut frame)) = frame {
+            println!("Processing frame #{}", i);
             frame.slice_mut(ndarray::s![500..600, 500..600, ..]).fill(0);
             encoder.encode(&frame, &position).expect("failed to encode frame");
             position = position.aligned_with(&duration).add();
+            i += 1;
         } else {
             break;
         }
-        i += 1;
     }
 
     encoder.finish().expect("failed to finish encoder");
