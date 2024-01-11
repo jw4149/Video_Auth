@@ -1,5 +1,6 @@
 target/
 .DS_Store
 samples/
-sample_frames/
 output_frames/
+output_original_frames/
+diff_vecs/
