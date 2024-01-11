@@ -5,8 +5,8 @@ use std::process;
 
 
 fn main() -> Result<(), Box<dyn Error>> {
-    let container1 = load_image("test.png");
-    let container2 = load_image("test_compare.png");
+    let container1 = load_image("original.ppm");
+    let container2 = load_image("edited.ppm");
 
     // Print the vector
     println!("width, height of the first image {:?}, {:?}", container1.width, container1.height);
@@ -17,52 +17,67 @@ fn main() -> Result<(), Box<dyn Error>> {
         process::exit(1);
     }
 
+    let delta_vec = compare_diff_abs(container1.data.as_ref(), container2.data.as_ref());
+
     // Split the data into four channels
-    /**
-    let mut channels = (Vec::new(), Vec::new(), Vec::new(), Vec::new());
-    for [c1, c2, c3, c4] in data {
-        channels.0.push(c1);
-        channels.1.push(c2);
-        channels.2.push(c3);
-        channels.3.push(c4);
+
+    let mut rgba_channels = (Vec::new(), Vec::new(), Vec::new(), Vec::new());
+    for [c1, c2, c3, c4] in delta_vec {
+        rgba_channels.0.push(c1);
+        rgba_channels.1.push(c2);
+        rgba_channels.2.push(c3);
+        rgba_channels.3.push(c4);
     }
+
+    let diff_r_max = *rgba_channels.0.iter().max().unwrap() as i32;
+    let diff_g_max = *rgba_channels.1.iter().max().unwrap() as i32;
+    let diff_b_max = *rgba_channels.2.iter().max().unwrap() as i32;
+    let diff_a_max = *rgba_channels.3.iter().max().unwrap() as i32;
+
+    // debug log 
+    println!("max diff for r,g,b,a channels {:?}, {:?}, {:?}, {:?}", diff_r_max, diff_g_max, diff_b_max, diff_a_max);
+
 
     // Define dimensions for the histograms
-    let dimensions = (container1.width, container1.height);
+    //let dimensions = (container1.width, container1.height);
 
-    // Create histograms for each channel
-    for (i, channel_data) in channels.into_iter().enumerate() {
-        let filename = format!("histogram_channel_{}.png", i + 1);
-        create_histogram(&filename, &channel_data, dimensions)?;
-    }
-    */
+    // // Create histograms for each channel
+    // for (i, channel_data) in rgba_channels.into_iter().enumerate() {
+    //     let filename = format!("histogram_channel_{}.png", i + 1);
+    //     create_histogram(&filename, &channel_data, dimensions)?;
+    // }
+
+    // let filename = format!("histogram_channel_1.png");
+    // create_histogram(&filename, &rgba_channels.0)?;
 
     Ok(())
 
 }
 
-fn create_histogram(filename: &str, data: &[i16], dimensions: (u32, u32)) -> Result<(), Box<dyn Error>> {
-    let root = BitMapBackend::new(filename, dimensions).into_drawing_area();
-    root.fill(&WHITE)?;
+// fn create_histogram(filename: &str, data: &Vec<i16>) -> Result<(), Box<dyn std::error::Error>> {
+//     let root = BitMapBackend::new(filename, (3840, 2160)).into_drawing_area();
+//     root.fill(&WHITE)?;
 
-    let mut chart = ChartBuilder::on(&root)
-        .caption("Histogram", ("sans-serif", 40))
-        .x_label_area_size(35)
-        .y_label_area_size(40)
-        .build_cartesian_2d(-10..10, 0..10)?; // Adjust range according to your data
+//     let max_y = *data.iter().max().unwrap() as i32;
+//     println!("max_y = {}", max_y);
+    
+//     let mut chart = ChartBuilder::on(&root)
+//         .caption("Line Plot", ("sans-serif", 50))
+//         .x_label_area_size(3840)
+//         .y_label_area_size(2160)
+//         .build_cartesian_2d(0..data.len() as i32, 0..max_y)?;
 
-    chart.configure_mesh().draw()?;
+//     chart.configure_mesh().draw()?;
 
-    chart.draw_series(
-        Histogram::vertical(&chart)
-            .style(RED.filled())
-            .data(data.iter().map(|&x| (x as i32, 1))),
-    )?;
+//     chart.draw_series(LineSeries::new(
+//         data.iter().enumerate().map(|(x, &y)| (x as i32, y as i32)), 
+//         &RED,
+//     ))?;
 
-    root.present()?;
+//     root.present()?;
 
-    Ok(())
-}
+//     Ok(())
+// }
 
 fn compare_diff_abs(a: &Vec<[u8; 4]>, b: &Vec<[u8; 4]>) -> Vec<[i16;4]> {
    a.iter().zip(b.iter()).map(|(a_elem, b_elem)| {
@@ -83,7 +98,10 @@ fn load_image(path: &str) -> ImageContainer {
     let mut img_vec = Vec::new();
     for y in 0..height {
         for x in 0..width {
-            let pixel = img.get_pixel(x, y).0; // Get the pixel value as RGBA
+            let mut pixel = img.get_pixel(x, y).0; // Get the pixel value as RGBA
+            if (x >= 500 && x < 600 && y >= 500 && y < 600) {
+                pixel = [0u8; 4];
+            }
             img_vec.push(pixel);
         }
     }
