@@ -9,9 +9,9 @@ use std::io::{Result, Write};
 
 fn main() -> Result<()> {
 
-    for i in 0..256 {
-        let original_file_path = format!("output_original_frames/frame{}.ppm", i);
-        let output_file_path = format!("output_frames/frame{}.ppm", i);
+    for i in 10..20 {
+        let original_file_path = format!("output_original_frames/frame{}.png", i);
+        let output_file_path = format!("output_frames_from_lossless_encoding/frame{}.png", i);
         let container1 = load_image(&original_file_path);
         let container2 = load_image(&output_file_path);
 

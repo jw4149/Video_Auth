@@ -3,3 +3,4 @@ target/
 output_frames/
 output_original_frames
 diff_vecs/
+output_frames_from_lossless_encoding/
